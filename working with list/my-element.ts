@@ -1,27 +1,39 @@
 import {LitElement, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
+import {customElement, state} from 'lit/decorators.js';
+import type {TemplateResult} from 'lit';
 
 @customElement('my-element')
 class MyElement extends LitElement {
+  @state()
+  friends = ['Harry', 'Ron', 'Hermione'];
+
+  @state()
+  pets = [
+    { name: "Hedwig", species: "Owl" },
+    { name: "Scabbers", species: "Rat" },
+    { name: "Crookshanks", species: "Cat" },
+  ];
+
+  @state()
+  includePets = true;
+
   render() {
+    const listItems: TemplateResult[] = [];
+    // TODO: populate templates with items to render.
+
     return html`
-      <h1>Rendering lists with Lit</h1>
-      <p>Lit has built-in support for any iterables!</p>
-      <h2>Array</h2>
-      <p>
-        ${['✨', '🔥', '❤️']}
-      </p>
-      <h2>Set</h2>
-      <p>
-        ${new Set(['A', 'B', 'C'])}
-      </p>
-      <h2>Generator</h2>
-      <p>
-        ${(function* () {
-            for (let i = 1; i < 4; i++) yield i;
-        })()}
-      </p>
+      <button @click=${() => this._togglePetVisibility()}>
+        ${this.includePets ? 'Hide' : 'Show'} pets
+      </button>
+      <p>My magical friends</p>
+      <ul>
+        <!-- TODO: Render templates. -->
+      </ul>
     `;
+  }
+
+  private _togglePetVisibility() {
+    this.includePets = !this.includePets;
   }
 }
 
