@@ -24,3 +24,4 @@ class MyElement extends LitElement {
     `;
   }
 }
+
